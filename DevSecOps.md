@@ -74,20 +74,43 @@ You'll create a CI pipeline that builds and pushes container images to an Azure 
 2. Click on **Create** and specify the Resource Group Name as AZ400-EWebShop-**(your-initials)**.
 3. Select region as Central US.
 4. Click on Review + Create and then click on Create.
+5. Once the Resource group is created, copy the subscription ID from the Overview page of the Resource Group and paste it in a notepad.
+
+### Register Application in Entra ID
+
+1. In the Azure portal, search for Entra ID, under Manage section on the left pane, please select App Registration and then click on ***+New Registration**.
+2. Provide Name as devops-sp-YourName, then click on **+Register**
+3. Copy the Application (client ID), Directory (tenant ID)and paste in the same notepad.
+4. Now, from the left pane, under manage section, select certificate & Secrets then click on **+New client secret**
+5. In the Descritpion- enter devops-secret and click on **add**
+6. Copy the VAlue of the secret Value immediately and paste it in the same notepad before it disappears.
+7. Now please ensure that you have the following in your notepad : Subscription ID, Application ID, Directory ID, Client Secret value(we will use these later in this lab)
+
+### Assigning access to the application created to your Resource Group
+
+1. In the Azure portal, search for the resource group you created earlier and select the same.
+2. From the left pane, select **Access Control (IAM)*** Click on **+Add** and select **Add role assignment**
+3. In the Add role assignment window, click on Privileged administrator roles and select **Contributor**, then click **+Next**
+4. Click on select members and search for the **devops-sp-YourName**, click on the same to select, then click on **select** to add
+5. Click on **Review+Assign**
 
 ### Setup service connection
 
 An Azure Resource Manager service connection allows you to connect to Azure resources like Azure Key Vault from your pipeline. This connection lets you use a pipeline to deploy to Azure resources, such as an Azure App Service app, without needing to authenticate each time.
 
 1. In the Azure DevOps project, go to **Project settings > Service connections**.
-1. Select **Create service connection**, then select **Azure Resource Manager** and **Next**.
-1. In the **New Azure service connection** pane, verify the following settings and then select **Save**:
-   - **Identity type**: App registration (automatic)
-   - **Credential**: Workload identity federation
-   - **Scope level**: Subscription
-   - **Subscription**: _Select the subscription you are using for this lab_
-   - **Service Connection Name**: `azure subs`
+2. Select **Create service connection**, then select **Azure Resource Manager** and **Next**.
+3. In the **New Azure service connection** pane, verify the following settings and then select **Save**:
+   - **Identity type**: App registration or Managed identity(manual)
+   - **Credential**: Secret
+   - **Subscription ID**: Paste the subscription ID you have copied earlier
+   - **Subscription Name**: `Azure Subscription`
+   - **Application ID**:  Paste the Application ID you have copied earlier
+   - **Directory ID**:
+   - **Client Secret**:
+   - **Service Connection Name**: azure subs
    - **Grant access permission to all pipelines**: Enabled
+ 4. Click on **Verify and Save** 
 
 ### Setup and Run CI pipeline
 
