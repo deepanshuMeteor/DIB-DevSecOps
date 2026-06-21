@@ -106,8 +106,8 @@ An Azure Resource Manager service connection allows you to connect to Azure reso
    - **Subscription ID**: Paste the subscription ID you have copied earlier
    - **Subscription Name**: `Azure Subscription`
    - **Application ID**:  Paste the Application ID you have copied earlier
-   - **Directory ID**:
-   - **Client Secret**:
+   - **Directory ID**: Paste the Directory ID you have copied earlier
+   - **Client Secret**: Paste the Secret Value you have copied earlier
    - **Service Connection Name**: azure subs
    - **Grant access permission to all pipelines**: Enabled
  4. Click on **Verify and Save** 
